@@ -3,7 +3,7 @@
 /*
   Plugin Name: WP Save Tweets
   Plugin URI: https://github.com/ambercouch/wp_save_tweets
-  Description: IFTTT can create a post in WordPress every time you tweet. This Plugin automatically adds a custom post type called 'tweets' and converts IFTTT posts to custom posts so tweets don't show in your main feed.
+  Description: IFTTT can create a post in WordPress every time you tweet. <a href="https://ifttt.com/recipes/267523-wp-save-tweets">Use this IFTTT recipe</a>. This Plugin automatically adds a custom post type called 'tweets' and converts IFTTT posts to custom posts so tweets don't show in your main feed.
   Version: 0.1
   Author: Richie Ambercouch
   Author URI: http://ambercouch.co.uk
