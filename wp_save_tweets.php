@@ -53,35 +53,21 @@ function save_tweets($post_id) {
 
 add_action('save_post', 'save_tweets');
 
-//Convert urls and hashtags to html links
-function format_tweets($post_id) {
+//Convert urls and hashtags to html links when printing the content
+function format_tweets($content) {
 
-  //prevent infinite loops
-  remove_action('save_post', 'format_tweets');
+  if (get_post_type() == 'tweets') {
 
-  //get the post by id
-  $content_post = get_post($post_id);
+    //convert url to html links
+    $content = preg_replace(
+            "/(?<!a href=\")(?<!src=\")((http|ftp)+(s)?:\/\/[^<>\s]+)/i", "<a href=\"\\0\" target=\"blank\">\\0</a>", $content
+    );
+    //convert #hashtags to html links
+    $content = preg_replace('/#([0-9a-zA-Z]+)/i', '<a href="http://twitter.com/hashtag/$1">#$1</a>', $content);
+  }
 
-  //convert url to html links
-  $content = preg_replace(
-          "/(?<!a href=\")(?<!src=\")((http|ftp)+(s)?:\/\/[^<>\s]+)/i", "<a href=\"\\0\" target=\"blank\">\\0</a>", $content_post->post_content
-  );
-
-  //convert #hashtags to html links
-  $content = preg_replace('/#([0-9a-zA-Z]+)/i', '<a href="http://twitter.com/hashtag/$1">#$1</a>', $content);
-
-
-  //update the post with the formatted content
-  wp_update_post(
-          array(
-              'ID' => $post_id,
-              'post_content' => $content
-          )
-  );
-
-  //reset the action
-  add_action('save_post', 'format_tweets');
+  return $content;
 }
 
-add_action('save_post', 'format_tweets');
+add_filter('the_content', 'format_tweets');
 
