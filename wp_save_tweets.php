@@ -9,6 +9,8 @@
   Author URI: http://ambercouch.co.uk
  */
 
+require_once( dirname(__FILE__) . '\widget\ac_wpst_widget.php' );
+
 //register the tweets custom post type
 function add_cpt_tweets() {
   $labels = array(
@@ -69,5 +71,4 @@ function format_tweets($content) {
   return $content;
 }
 
-add_filter('the_content', 'format_tweets');
-
+add_filter('the_content', 'format_tweets', 1);
